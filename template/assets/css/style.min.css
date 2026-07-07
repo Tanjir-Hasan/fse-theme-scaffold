@@ -1,0 +1,55 @@
+@charset "UTF-8";
+input[type="search"]::-ms-clear {
+    display: none;
+    width: 0;
+    height: 0;
+}
+input[type="search"]::-ms-reveal {
+    display: none;
+    width: 0;
+    height: 0;
+}
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+    display: none;
+}
+html {
+    box-sizing: border-box;
+}
+*,
+::after,
+::before {
+    box-sizing: inherit;
+}
+.site-content {
+    flex-grow: 1;
+}
+.wp-site-blocks {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.wp-site-blocks footer {
+    margin-block-start: auto;
+    margin-top: auto;
+}
+.{{SLUG}}-block-row {
+    padding-left: 0;
+    padding-right: 0;
+}
+.wp-block-group.is-layout-flow.wp-block-group-is-layout-flow {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* ==========================================================================
+   Add your own frontend CSS below this line.
+   This file is enqueued on the frontend by includes/scripts.php
+   (enqueue_frontend_scripts). If you also want a rule to show correctly
+   inside the Block/Site Editor preview, copy it into assets/css/editor.min.css
+   as well (see the matching marker there) — the editor canvas loads a
+   different stylesheet than the live site.
+   ========================================================================== */

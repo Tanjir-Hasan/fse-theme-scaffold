@@ -1,0 +1,9 @@
+.{{SLUG}}-duotone-primary {
+    filter: var(--wp--preset--duotone--primary);
+}
+.{{SLUG}}-duotone-secondary {
+    filter: var(--wp--preset--duotone--secondary);
+}
+.{{SLUG}}-duotone-tertiary {
+    filter: var(--wp--preset--duotone--tertiary);
+}

@@ -1,0 +1,13 @@
+{
+  "name": "{{SLUG}}",
+  "version": "0.0.1",
+  "private": true,
+  "description": "{{THEME_NAME}} - WordPress FSE block theme",
+  "scripts": {
+    "start": "wp-scripts start",
+    "build": "wp-scripts build"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^30.0.0"
+  }
+}
