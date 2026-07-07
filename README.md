@@ -2,6 +2,10 @@
 
 A Claude Code skill that generates a new WordPress **Full Site Editing (FSE) block theme**, ready to use, from just a theme name and an author name.
 
+```bash
+Create a new FSE theme, [Name], [Author]
+```
+
 ## What you get
 
 A complete theme folder — not a bare `style.css` + `index.php` stub — with:
