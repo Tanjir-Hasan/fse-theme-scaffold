@@ -9,5 +9,11 @@
   },
   "devDependencies": {
     "@wordpress/scripts": "^30.0.0"
+  },
+  "overrides": {
+    "minimatch": "^10.2.5",
+    "serialize-javascript": "^7.0.7",
+    "markdown-it": "^14.3.0",
+    "linkify-it": "^5.0.2"
   }
 }
