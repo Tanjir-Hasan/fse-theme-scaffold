@@ -37,9 +37,19 @@ From the theme name, compute (all pure string transforms, no user input needed):
 
 For a single-word theme name, `SLUG` and `PFX` end up identical (e.g. `"Acme Courses"` → `SLUG=acme-courses`, `PFX=acmecourses`) — that's expected.
 
-## Step 3 — Copy the template and substitute tokens
+## Step 3 — Get the template and substitute tokens
 
-The `template/` folder next to this file is a complete, working theme skeleton with every one of the above identifiers replaced by `{{TOKEN}}` placeholders (e.g. `{{THEME_NAME}}`, `{{SLUG}}`, `{{NAMESPACE}}`, `{{CONST_PREFIX}}`, `{{PFX}}`, `{{LOC}}`, `{{AUTHOR}}`, `{{YEAR}}`).
+`template/` (plus `docs/DEVELOPMENT.md`) is a complete, working theme skeleton with every one of the above identifiers replaced by `{{TOKEN}}` placeholders (e.g. `{{THEME_NAME}}`, `{{SLUG}}`, `{{NAMESPACE}}`, `{{CONST_PREFIX}}`, `{{PFX}}`, `{{LOC}}`, `{{AUTHOR}}`, `{{YEAR}}`).
+
+**Important:** `npx skills add` only ever installs this `SKILL.md` file itself — it does not install sibling files or folders, even when they exist right next to `SKILL.md` in the source repo. So do **not** assume `template/` sits next to this file on disk. Instead:
+
+0. Check whether `template/` already exists next to this `SKILL.md` (true if you're running from a full local clone/checkout rather than a CLI-installed skill). If it exists, use it directly and skip to step 1. If it does **not** exist, fetch it fresh:
+
+   ```bash
+   rm -rf /tmp/fse-theme-scaffold-src
+   git clone --depth 1 https://github.com/Tanjir-Hasan/fse-theme-scaffold.git /tmp/fse-theme-scaffold-src
+   # template/ and docs/DEVELOPMENT.md are now at /tmp/fse-theme-scaffold-src/
+   ```
 
 1. Copy `template/` (recursively, including empty directories like `assets/fonts`, `assets/image`, `languages`, `styles`) to the target directory (e.g. `wp-content/themes/<SLUG>/`). Confirm the target directory doesn't already exist before writing — don't overwrite an existing theme folder.
 2. Run a find-and-replace across **every file** in the new theme folder (PHP, CSS, JSON, HTML, JS — not binary/image files) substituting each `{{TOKEN}}` with its computed value. A `sed` loop over all text files works well:
@@ -61,7 +71,7 @@ The `template/` folder next to this file is a complete, working theme skeleton w
 
    Order doesn't matter here (unlike renaming an *existing* branded theme) because the tokens are unambiguous, delimited placeholders — there's no risk of one substitution corrupting another.
 
-3. Copy `docs/DEVELOPMENT.md` (next to this file) into the new theme root as `DEVELOPMENT.md`, then run the same token substitution on that copy too — it travels with the generated theme for whoever needs to touch the PHP later.
+3. Copy `docs/DEVELOPMENT.md` (from wherever you got `template/` in step 0 — either next to this file, or `/tmp/fse-theme-scaffold-src/docs/DEVELOPMENT.md`) into the new theme root as `DEVELOPMENT.md`, then run the same token substitution on that copy too — it travels with the generated theme for whoever needs to touch the PHP later.
 4. Verify no placeholders are left: `grep -rl "{{" <new-theme-dir>` should return nothing.
 5. Lint every PHP file: `php -l` each `*.php` file (or all at once in a loop) and fix anything that doesn't say "No syntax errors detected" before reporting success.
 
@@ -105,3 +115,4 @@ Show the user:
 
 - The `template/` folder is a frozen, hand-tokenized snapshot of a working theme's architecture (DOM helpers, responsive visibility, per-page meta toggles, REST settings route, block-style registrations). It deliberately excludes anything specific to one theme's branding (e.g. a "welcome notice" admin screen promoting a specific companion plugin) — keep it that way; only add things here that are genuinely reusable across unrelated FSE theme projects.
 - If you fix a bug in a scaffolded theme's core files and it's a bug in the *architecture* (not that theme's content), port the fix back into `template/` too (re-tokenize the identifiers you touched) so future scaffolds don't regenerate the same bug.
+- **Do not** add a second file/folder that this skill depends on being co-located with `SKILL.md` on disk, and assume it'll be there — `npx skills add` (and most agent skill-installers) only ever install the `SKILL.md` file itself, dropping every sibling file/folder. That's why Step 3 clones the repo instead of reading a local `template/` — any future asset this skill needs must be fetched the same way (from the GitHub repo, at run time), not assumed to be present next to this file.
