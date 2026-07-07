@@ -5,7 +5,7 @@ description: Scaffolds a new WordPress Full Site Editing (FSE) block theme with 
 
 # FSE Theme Scaffold
 
-Generates a new WordPress FSE (block) theme folder with the same architecture used in the Aria/Learnity FSE theme projects: `theme.json` design tokens, block-based `templates/`/`parts/`/`patterns/`, a small PHP "core" library (DOM helpers, CSS helpers, responsive visibility, per-page meta toggles, sticky/transparent header, REST settings route), and an `@wordpress/scripts` build for the two editor-sidebar panels.
+Generates a complete, working WordPress FSE (block) theme folder: `theme.json` design tokens, block-based `templates/`/`parts/`/`patterns/`, a small PHP "core" library (DOM helpers, CSS helpers, responsive visibility, per-page meta toggles, sticky/transparent header, REST settings route), and an `@wordpress/scripts` build for the two editor-sidebar panels.
 
 The user should only need to give a **theme name** and **author**. Everything else is derived automatically. Don't ask more than that unless something genuinely can't be inferred (see Step 1).
 
@@ -13,7 +13,7 @@ The user should only need to give a **theme name** and **author**. Everything el
 
 Ask the user (if not already given in their message):
 
-1. **Theme name** (e.g. "Learnity") — display name, used in `style.css`, `readme.txt`, on-screen panel titles.
+1. **Theme name** (e.g. "Acme Courses") — display name, used in `style.css`, `readme.txt`, on-screen panel titles.
 2. **Author** name — used in `@author` docblocks and `readme.txt`.
 
 Optionally, if the user cares, you can also ask **where** to create it (default: a sibling folder next to the current theme/project, inside the WordPress `wp-content/themes/` directory — infer this from the current working directory if it's already inside a `wp-content/themes/<something>` path).
@@ -24,18 +24,18 @@ Do not ask about namespace, constant prefix, slug, or folder layout — derive t
 
 From the theme name, compute (all pure string transforms, no user input needed):
 
-| Token | Rule | Example (`"Learnity Pro"`) |
+| Token | Rule | Example (`"Acme Courses Pro"`) |
 |---|---|---|
-| `THEME_NAME` | given, as-is | `Learnity Pro` |
-| `SLUG` | kebab-case, lowercase, non-alphanumeric → `-` | `learnity-pro` |
-| `NAMESPACE` | PascalCase, words concatenated, no separators | `LearnityPro` |
-| `CONST_PREFIX` | `NAMESPACE` upper-cased | `LEARNITYPRO` |
-| `PFX` | `NAMESPACE` lower-cased (no hyphens — used inside PHP identifiers/CSS class fragments where `-pro` would be invalid or ambiguous) | `learnitypro` |
-| `LOC` | `NAMESPACE` with first letter lower-cased (JS global object name for `wp_localize_script`) | `learnityPro` |
+| `THEME_NAME` | given, as-is | `Acme Courses Pro` |
+| `SLUG` | kebab-case, lowercase, non-alphanumeric → `-` | `acme-courses-pro` |
+| `NAMESPACE` | PascalCase, words concatenated, no separators | `AcmeCoursesPro` |
+| `CONST_PREFIX` | `NAMESPACE` upper-cased | `ACMECOURSESPRO` |
+| `PFX` | `NAMESPACE` lower-cased (no hyphens — used inside PHP identifiers/CSS class fragments where `-pro` would be invalid or ambiguous) | `acmecoursespro` |
+| `LOC` | `NAMESPACE` with first letter lower-cased (JS global object name for `wp_localize_script`) | `acmeCoursesPro` |
 | `AUTHOR` | given, as-is | — |
 | `YEAR` | current year | `2026` |
 
-For a single-word theme name, `SLUG` and `PFX` end up identical (e.g. `"Learnity"` → `SLUG=learnity`, `PFX=learnity`) — that's expected.
+For a single-word theme name, `SLUG` and `PFX` end up identical (e.g. `"Acme Courses"` → `SLUG=acme-courses`, `PFX=acmecourses`) — that's expected.
 
 ## Step 3 — Copy the template and substitute tokens
 
